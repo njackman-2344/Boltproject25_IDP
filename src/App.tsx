@@ -3,7 +3,7 @@ import { Heart } from 'lucide-react';
 import WelcomeStep from './components/WelcomeStep';
 import ShareStep from './components/ShareStep';
 import ToneSelectStep from './components/ToneSelectStep';
-import ConversationStep from './components/ConversationStep';
+import VoiceConversationStep from './components/VoiceConversationStep';
 import ReflectionStep from './components/ReflectionStep';
 import HistoryStep from './components/HistoryStep';
 import ProgressBar from './components/ProgressBar';
@@ -19,8 +19,8 @@ function App() {
 
   // Load data from localStorage on mount
   useEffect(() => {
-    const savedConversations = localStorage.getItem('reparentingConversations');
-    const savedReflections = localStorage.getItem('reparentingReflections');
+    const savedConversations = localStorage.getItem('personalDevelopmentConversations');
+    const savedReflections = localStorage.getItem('personalDevelopmentReflections');
     
     if (savedConversations) {
       setConversations(JSON.parse(savedConversations));
@@ -32,11 +32,11 @@ function App() {
 
   // Save data to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('reparentingConversations', JSON.stringify(conversations));
+    localStorage.setItem('personalDevelopmentConversations', JSON.stringify(conversations));
   }, [conversations]);
 
   useEffect(() => {
-    localStorage.setItem('reparentingReflections', JSON.stringify(reflections));
+    localStorage.setItem('personalDevelopmentReflections', JSON.stringify(reflections));
   }, [reflections]);
 
   const saveConversation = (conversation: Conversation) => {
@@ -60,6 +60,17 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Disclaimer */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+          <h3 className="font-semibold text-blue-800 mb-2">Important Disclaimer:</h3>
+          <p className="text-blue-700 text-sm leading-relaxed">
+            This app is designed for general wellness and personal development purposes only. It is not intended to diagnose, treat, cure, or prevent any disease or mental health condition. The content provided is not a substitute for professional healthcare or therapy.
+          </p>
+          <p className="text-blue-700 text-sm mt-2">
+            If you are experiencing significant distress or mental health concerns, please consult a qualified healthcare provider.
+          </p>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
@@ -71,7 +82,7 @@ function App() {
             Ideal Parent Figure
           </h1>
           <p className="text-gray-600 text-lg">
-            Healing conversations for reparenting your inner child
+            Voice-powered personal development conversations for emotional growth and self-compassion
           </p>
         </div>
 
@@ -113,7 +124,7 @@ function App() {
           )}
           
           {currentStep === 'conversation' && (
-            <ConversationStep
+            <VoiceConversationStep
               conversation={currentConversation}
               onNext={(data) => {
                 const completeConversation: Conversation = {
@@ -159,8 +170,20 @@ function App() {
         </div>
 
         {/* Privacy Notice */}
-        <div className="text-center text-sm text-gray-500">
+        <div className="text-center text-sm text-gray-500 mb-6">
           <p>🔒 All conversations are private and stored securely on your device</p>
+          <p className="mt-1">🎤 Voice processing happens in your browser for maximum privacy</p>
+        </div>
+
+        {/* Bottom Disclaimer */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+          <h3 className="font-semibold text-blue-800 mb-2">Important Disclaimer:</h3>
+          <p className="text-blue-700 text-sm leading-relaxed">
+            This app is designed for general wellness and personal development purposes only. It is not intended to diagnose, treat, cure, or prevent any disease or mental health condition. The content provided is not a substitute for professional healthcare or therapy.
+          </p>
+          <p className="text-blue-700 text-sm mt-2">
+            If you are experiencing significant distress or mental health concerns, please consult a qualified healthcare provider.
+          </p>
         </div>
       </div>
     </div>

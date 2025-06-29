@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, History, Heart, Shield, Sparkles } from 'lucide-react';
+import { MessageCircle, History, Heart, Shield, Sparkles, Mic } from 'lucide-react';
 
 interface WelcomeStepProps {
   onStart: () => void;
@@ -12,12 +12,12 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart, onViewHistory, hasHi
     <div className="text-center space-y-8">
       <div className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-          Welcome to Your Healing Journey
+          Welcome to Your Voice-Powered Personal Development Journey
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Connect with the loving, supportive parent you needed. Share what's on your heart 
-          and receive the nurturing responses that can help heal attachment wounds and 
-          reparent your inner child. Do this for 90 days straight, for 10 minutes a day, and recognize the difference in your confidence, emotional state, and quality of life.
+          Connect with the supportive, nurturing voice you need. Share what's on your mind 
+          through voice and receive encouraging spoken responses that can support emotional growth and 
+          self-compassion. Experience daily 10-minute voice conversations and notice the positive impact on your confidence, emotional balance, and overall well-being.
         </p>
       </div>
 
@@ -25,11 +25,11 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart, onViewHistory, hasHi
       <div className="grid md:grid-cols-3 gap-6 my-12">
         <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-6 rounded-xl border border-rose-100">
           <div className="bg-rose-400 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Heart className="w-6 h-6 text-white" />
+            <Mic className="w-6 h-6 text-white" />
           </div>
-          <h3 className="font-semibold text-gray-800 mb-2">Unconditional Love</h3>
+          <h3 className="font-semibold text-gray-800 mb-2">Voice Conversations</h3>
           <p className="text-sm text-gray-600">
-            Experience the warmth and acceptance you deserve from an ideal parent figure
+            Speak naturally and hear supportive responses with a warm, encouraging voice
           </p>
         </div>
 
@@ -37,9 +37,9 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart, onViewHistory, hasHi
           <div className="bg-purple-400 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
             <Sparkles className="w-6 h-6 text-white" />
           </div>
-          <h3 className="font-semibold text-gray-800 mb-2">Healing Responses</h3>
+          <h3 className="font-semibold text-gray-800 mb-2">Supportive Responses</h3>
           <p className="text-sm text-gray-600">
-            Receive nurturing, validating responses tailored to your emotional needs
+            Receive personalized, spoken responses tailored to support your emotional well-being
           </p>
         </div>
 
@@ -47,9 +47,9 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart, onViewHistory, hasHi
           <div className="bg-blue-400 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield className="w-6 h-6 text-white" />
           </div>
-          <h3 className="font-semibold text-gray-800 mb-2">Safe Space</h3>
+          <h3 className="font-semibold text-gray-800 mb-2">Private & Secure</h3>
           <p className="text-sm text-gray-600">
-            Your vulnerable shares are protected in a judgment-free environment
+            All voice processing happens in your browser - nothing is sent to external servers
           </p>
         </div>
       </div>
@@ -60,8 +60,8 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart, onViewHistory, hasHi
           onClick={onStart}
           className="bg-gradient-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center mx-auto space-x-3"
         >
-          <MessageCircle className="w-5 h-5" />
-          <span>Start a Conversation</span>
+          <Mic className="w-5 h-5" />
+          <span>Start Voice Conversation</span>
         </button>
 
         {hasHistory && (
@@ -77,22 +77,34 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart, onViewHistory, hasHi
 
       {/* How it works */}
       <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-6 mt-12 border border-rose-100">
-        <h3 className="font-semibold text-gray-800 mb-4">Your healing process:</h3>
+        <h3 className="font-semibold text-gray-800 mb-4">Your personal development process:</h3>
         <div className="flex flex-wrap justify-center gap-2 text-sm text-gray-600">
-          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">1. Share your feelings</span>
+          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">1. Share your thoughts</span>
           <span className="text-rose-300">→</span>
-          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">2. Choose parent tone</span>
+          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">2. Choose support style</span>
           <span className="text-rose-300">→</span>
-          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">3. Receive love</span>
+          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">3. Hear encouraging response</span>
           <span className="text-rose-300">→</span>
-          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">4. Reflect & heal</span>
+          <span className="bg-white px-3 py-1 rounded-full border border-rose-200">4. Reflect & grow</span>
         </div>
+      </div>
+
+      {/* Voice Requirements */}
+      <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+        <div className="flex items-center justify-center space-x-2 mb-2">
+          <Mic className="w-4 h-4 text-blue-600" />
+          <h4 className="font-medium text-blue-800">Voice Features</h4>
+        </div>
+        <p className="text-blue-700 text-sm">
+          For the best experience, use Chrome, Safari, or Edge with microphone permissions enabled. 
+          If voice features aren't available, you can still use text input as a fallback.
+        </p>
       </div>
 
       {/* Gentle reminder */}
       <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
         <p className="text-amber-800 text-sm">
-          💝 Remember: You deserve love, validation, and support. Take your time and be gentle with yourself.
+          💝 Remember: You deserve support, encouragement, and self-compassion. Take your time and be gentle with yourself.
         </p>
       </div>
     </div>

@@ -29,12 +29,12 @@ const ShareStep: React.FC<ShareStepProps> = ({ conversation, onNext, onBack }) =
   };
 
   const promptExamples = [
-    "I'm feeling overwhelmed and don't know if I'm good enough...",
+    "I'm feeling overwhelmed and questioning my abilities...",
     "I made a mistake today and I'm being really hard on myself...",
-    "I'm scared about this big decision I need to make...",
-    "I feel like I don't deserve love or happiness...",
-    "I'm struggling with feeling abandoned and alone...",
-    "I need reassurance that everything will be okay..."
+    "I'm nervous about this big decision I need to make...",
+    "I'm struggling with self-doubt and confidence...",
+    "I feel disconnected and could use some encouragement...",
+    "I need reassurance that I'm on the right path..."
   ];
 
   return (
@@ -44,31 +44,31 @@ const ShareStep: React.FC<ShareStepProps> = ({ conversation, onNext, onBack }) =
           <Heart className="w-8 h-8 text-white" />
         </div>
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-          Share What's in Your Heart
+          Share What's on Your Mind
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          This is a safe space to express your feelings, fears, or anything you need support with. 
-          Your ideal parent is here to listen with love and understanding.
+          This is a safe space to express your thoughts, concerns, or anything you'd like support with. 
+          Your supportive voice is here to listen with understanding and encouragement.
         </p>
       </div>
 
       <div className="space-y-6">
         <div className="space-y-3">
           <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-            What would you like to share with your ideal parent?
+            What would you like to share today?
           </label>
           <textarea
             id="message"
             value={userMessage}
             onChange={(e) => handleInputChange(e.target.value)}
             onKeyDown={handleKeyPress}
-            placeholder="I'm feeling really anxious about work tomorrow. I keep thinking I'm not good enough and that everyone will see that I'm a fraud. I wish someone could tell me that I'm worthy and that it's okay to feel scared sometimes..."
+            placeholder="I'm feeling really anxious about work tomorrow. I keep thinking I'm not capable enough and that everyone will notice my mistakes. I wish someone could remind me that I'm worthy and that it's okay to feel uncertain sometimes..."
             className="w-full h-48 p-4 border-2 border-gray-200 rounded-xl focus:border-rose-400 focus:ring-2 focus:ring-rose-200 transition-all duration-200 resize-none text-gray-700 placeholder-gray-400"
             maxLength={1000}
           />
           <div className="flex justify-between items-center text-sm">
             <span className={`${isValid ? 'text-green-600' : 'text-gray-400'}`}>
-              {isValid ? '✓ Ready to receive love' : 'Please share at least 10 characters'}
+              {isValid ? '✓ Ready to receive support' : 'Please share at least 10 characters'}
             </span>
             <span className="text-gray-400">
               {userMessage.length}/1000

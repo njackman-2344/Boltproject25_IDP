@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Search, Calendar, MessageCircle, Heart, Eye } from 'lucide-react';
+import { ArrowLeft, Search, Calendar, MessageCircle, Heart, Eye, Download } from 'lucide-react';
 import { Conversation, Reflection } from '../types';
+import { fileService } from '../services/fileService';
 
 interface HistoryStepProps {
   conversations: Conversation[];
@@ -27,6 +28,15 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
 
   const getReflectionForConversation = (conversationId: string) => {
     return reflections.find(r => r.conversationId === conversationId);
+  };
+
+  const handleDownloadAll = () => {
+    fileService.downloadAllConversations(conversations, reflections);
+  };
+
+  const handleDownloadConversation = (conversation: Conversation) => {
+    const reflection = getReflectionForConversation(conversation.id);
+    fileService.downloadConversation(conversation, reflection);
   };
 
   const formatDate = (timestamp: string) => {
@@ -59,7 +69,7 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
     return labels[tone as keyof typeof labels] || 'Nurturing';
   };
 
-  const getHealingStars = (rating: number) => {
+  const getWellnessStars = (rating: number) => {
     return '★'.repeat(rating) + '☆'.repeat(5 - rating);
   };
 
@@ -67,10 +77,10 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
     <div className="space-y-8">
       <div className="text-center space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-          Your Healing Journey
+          Your Personal Development Journey
         </h2>
         <p className="text-lg text-gray-600">
-          Review your conversations with your ideal parent and see how far you've come
+          Review your conversations and see your progress in emotional growth and self-compassion
         </p>
       </div>
 
@@ -99,8 +109,8 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
         </select>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Stats and Download */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-xl border border-rose-100">
           <div className="text-2xl font-bold text-rose-600">{conversations.length}</div>
           <div className="text-sm text-rose-800">Conversations</div>
@@ -113,13 +123,23 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
           <div className="text-2xl font-bold text-blue-600">
             {reflections.length ? Math.round(reflections.reduce((sum, r) => sum + r.healingRating, 0) / reflections.length * 10) / 10 : 0}
           </div>
-          <div className="text-sm text-blue-800">Avg. Healing</div>
+          <div className="text-sm text-blue-800">Avg. Wellness</div>
         </div>
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
           <div className="text-2xl font-bold text-green-600">
             {conversations.length ? Math.round((conversations.length / Math.max(1, Math.ceil((Date.now() - new Date(conversations[conversations.length - 1].timestamp).getTime()) / (1000 * 60 * 60 * 24)))) * 10) / 10 : 0}
           </div>
           <div className="text-sm text-green-800">Per Day</div>
+        </div>
+        <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-100">
+          <button
+            onClick={handleDownloadAll}
+            disabled={conversations.length === 0}
+            className="w-full h-full flex flex-col items-center justify-center text-amber-600 hover:text-amber-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          >
+            <Download className="w-6 h-6 mb-1" />
+            <div className="text-xs text-amber-800">Download All</div>
+          </button>
         </div>
       </div>
 
@@ -133,7 +153,7 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
             </h3>
             <p className="text-gray-500">
               {conversations.length === 0 
-                ? 'Start your first conversation to begin your healing journey'
+                ? 'Start your first conversation to begin your personal development journey'
                 : 'Try adjusting your search terms or filters'
               }
             </p>
@@ -153,13 +173,22 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
                       {formatDate(conversation.timestamp)}
                     </div>
                   </div>
-                  <button
-                    onClick={() => onSelectConversation(conversation)}
-                    className="flex items-center space-x-1 px-3 py-1 text-sm text-rose-600 hover:text-rose-800 transition-colors duration-200"
-                  >
-                    <Eye className="w-4 h-4" />
-                    <span>View</span>
-                  </button>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handleDownloadConversation(conversation)}
+                      className="flex items-center space-x-1 px-3 py-1 text-sm text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Save</span>
+                    </button>
+                    <button
+                      onClick={() => onSelectConversation(conversation)}
+                      className="flex items-center space-x-1 px-3 py-1 text-sm text-rose-600 hover:text-rose-800 transition-colors duration-200"
+                    >
+                      <Eye className="w-4 h-4" />
+                      <span>View</span>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="space-y-3">
@@ -176,7 +205,7 @@ const HistoryStep: React.FC<HistoryStepProps> = ({
                           <span className="text-sm font-medium text-gray-700">Reflection</span>
                         </div>
                         <div className="text-sm text-gray-600">
-                          {getHealingStars(reflection.healingRating)}
+                          {getWellnessStars(reflection.healingRating)}
                         </div>
                       </div>
                       {reflection.emotionalState && (
